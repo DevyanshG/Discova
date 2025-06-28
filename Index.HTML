@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discova.AI - We Break Prices So You Don't Break the Bank</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #fff, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 150px 0 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="80" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="60" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateX(-50%) translateY(-50%) rotate(0deg); }
+            100% { transform: translateX(-50%) translateY(-50%) rotate(360deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: slideInUp 1s ease;
+        }
+
+        .hero-tagline {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: slideInUp 1s ease 0.2s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(238, 90, 36, 0.3);
+            animation: slideInUp 1s ease 0.4s both;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(238, 90, 36, 0.4);
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background: #f8f9fa;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .pricing-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .pricing-card:hover {
+            transform: scale(1.05);
+            background: rgba(255,255,255,0.2);
+        }
+
+        .pricing-card.featured {
+            transform: scale(1.1);
+            background: rgba(255,255,255,0.2);
+            border: 2px solid #ffd700;
+        }
+
+        .plan-name {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .plan-price {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #ffd700;
+        }
+
+        .plan-features {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .plan-features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .plan-button {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #333;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .plan-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #ffd700;
+        }
+
+        .contact-info {
+            text-align: left;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-tagline {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Interactive Elements */
+        .demo-button {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .demo-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 500px;
+            text-align: center;
+            color: #333;
+        }
+
+        .close-popup {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">Discova.AI</div>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Discova.AI</h1>
+            <p class="hero-tagline">We Break Prices So You Don't Break the Bank</p>
+            <a href="#" class="cta-button" onclick="showDemo()">Try Free Demo</a>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">Powerful AI Shopping Features</h2>
+            <div class="features-grid">
+                <div class="feature-card" onclick="showFeatureDemo('negotiator')">
+                    <span class="feature-icon">🤖</span>
+                    <h3>AI Price Negotiator</h3>
+                    <p>Automated chatbots interact with retailers to negotiate better deals and discounts for you.</p>
+                </div>
+                
+                <div class="feature-card" onclick="showFeatureDemo('scanner')">
+                    <span class="feature-icon">🔍</span>
+                    <h3>Real-Time Deal Scanner</h3>
+                    <p>Continuously scans thousands of e-commerce sites for the best coupons and flash sales.</p>
+                </div>
+                
+                <div class="feature-card" onclick="showFeatureDemo('tracker')">
+                    <span class="feature-icon">📊</span>
+                    <h3>Price History Tracker</h3>
+                    <p>Shows historical price charts so you know if you're getting a truly good deal.</p>
+                </div>
+                
+                <div class="feature-card" onclick="showFeatureDemo('bundle')">
+                    <span class="feature-icon">📦</span>
+                    <h3>Bundle Negotiation</h3>
+                    <p>Suggests and negotiates bundles or add-ons to maximize your savings.</p>
+                </div>
+                
+                <div class="feature-card" onclick="showFeatureDemo('personal')">
+                    <span class="feature-icon">💡</span>
+                    <h3>Personalized Recommendations</h3>
+                    <p>Learns your shopping habits and suggests deals on products you love.</p>
+                </div>
+                
+                <div class="feature-card" onclick="showFeatureDemo('secure')">
+                    <span class="feature-icon">🔒</span>
+                    <h3>Secure & Privacy-First</h3>
+                    <p>Your data is encrypted and never shared without consent. Complete privacy protection.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2 class="section-title">Choose Your Savings Plan</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="plan-name">🟢 Basic Saver</div>
+                    <div class="plan-price">FREE</div>
+                    <ul class="plan-features">
+                        <li>General deals and coupons</li>
+                        <li>Basic search and filter tools</li>
+                        <li>Daily/weekly newsletters</li>
+                        <li>Community reviews</li>
+                        <li>Up to 10 deal bookmarks</li>
+                    </ul>
+                    <button class="plan-button" onclick="selectPlan('free')">Get Started Free</button>
+                </div>
+                
+                <div class="pricing-card featured">
+                    <div class="plan-name">🟡 Smart Saver</div>
+                    <div class="plan-price">$4.99<span style="font-size: 1rem;">/month</span></div>
+                    <ul class="plan-features">
+                        <li>All Free Plan features</li>
+                        <li>Early access to top deals</li>
+                        <li>Price drop alerts</li>
+                        <li>Unlimited deal saves</li>
+                        <li>Ad-free browsing</li>
+                        <li>Personalized recommendations</li>
+                        <li>Cashback tracking</li>
+                    </ul>
+                    <button class="plan-button" onclick="selectPlan('pro')">Start 7-Day Trial</button>
+                </div>
+                
+                <div class="pricing-card">
+                    <div class="plan-name">🔴 Max Saver+</div>
+                    <div class="plan-price">$9.99<span style="font-size: 1rem;">/month</span></div>
+                    <ul class="plan-features">
+                        <li>All Pro Plan features</li>
+                        <li>Invite-only flash sales</li>
+                        <li>Cashback boosters</li>
+                        <li>Deal Hunter Club access</li>
+                        <li>AI deal concierge</li>
+                        <li>2x referral bonuses</li>
+                        <li>Priority support</li>
+                    </ul>
+                    <button class="plan-button" onclick="selectPlan('premium')">Go Premium</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Discova.AI</h3>
+                    <p>Breaking prices so you don't break the bank. Join thousands of smart shoppers saving money every day.</p>
+                </div>
+                
+                <div class="footer-section contact-info">
+                    <h3>Contact Us</h3>
+                    <p>📧 DiscountsDiscova@gmail.com</p>
+                    <p>📞 +562736830</p>
+                    <p>📍 140 E 14th St, New York, NY 10003, USA</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <p><a href="#" style="color: #ffd700;">Terms & Conditions</a></p>
+                    <p><a href="#" style="color: #ffd700;">Privacy Policy</a></p>
+                    <p><a href="#" style="color: #ffd700;">Cookie Policy</a></p>
+                </div>
+            </div>
+            
+            <div style="border-top: 1px solid #555; padding-top: 2rem; margin-top: 2rem;">
+                <p>&copy; 2025 Discova.AI. All rights reserved. We break prices so you don't break the bank.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Popup Modal -->
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <h3 id="popup-title">Feature Demo</h3>
+            <p id="popup-text">This is where the demo would appear!</p>
+            <button class="close-popup" onclick="closePopup()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Feature demo functions
+        function showDemo() {
+            document.getElementById('popup-title').textContent = 'Discova.AI Demo';
+            document.getElementById('popup-text').innerHTML = `
+                <strong>Welcome to Discova.AI!</strong><br><br>
+                🎯 Our AI is scanning 1,000+ stores right now<br>
+                💰 Average user saves $500+ per month<br>
+                🤖 AI negotiation success rate: 78%<br><br>
+                Ready to start saving?
+            `;
+            document.getElementById('popup').style.display = 'flex';
+        }
+
+        function showFeatureDemo(feature) {
+            const features = {
+                negotiator: {
+                    title: 'AI Price Negotiator Demo',
+                    text: '🤖 AI: "Hi! I noticed this customer is interested in bulk purchase. Any volume discounts available?"<br><br>🏪 Store: "Yes! We can offer 15% off for orders over $200."<br><br>💰 You saved: $67 on your $350 order!'
+                },
+                scanner: {
+                    title: 'Real-Time Scanner Demo',
+                    text: '🔍 Scanning Amazon, eBay, Target, Walmart...<br><br>✅ Found 15 active deals<br>✅ Best price: $89.99 (was $129.99)<br>✅ Additional 10% coupon available<br><br>💰 Total savings: $50!'
+                },
+                tracker: {
+                    title: 'Price History Demo',
+                    text: '📊 Price History for iPhone 15:<br><br>Jan: $999 → Feb: $949 → Mar: $899<br><br>💡 Current price of $879 is the LOWEST in 6 months!<br><br>🎯 Recommendation: BUY NOW!'
+                },
+                bundle: {
+                    title: 'Bundle Negotiation Demo',
+                    text: '📦 AI found bundle opportunity:<br><br>🎧 Headphones: $199<br>📱 Phone case: $29<br>🔌 Charger: $39<br><br>💡 Bundle deal negotiated: $199 total<br>💰 You save: $68!'
+                },
+                personal: {
+                    title: 'Personal Recommendations',
+                    text: '💡 Based on your shopping history:<br><br>🎮 Gaming deals (you buy monthly)<br>☕ Coffee subscriptions (15% off)<br>📚 Tech books (buy 2, get 1 free)<br><br>🎯 Perfectly matched to your interests!'
+                },
+                secure: {
+                    title: 'Security & Privacy',
+                    text: '🔒 Your data protection:<br><br>✅ End-to-end encryption<br>✅ No data sold to third parties<br>✅ Optional privacy features<br>✅ You control your data<br><br>🛡️ Shop with confidence!'
+                }
+            };
+            
+            const demo = features[feature];
+            document.getElementById('popup-title').textContent = demo.title;
+            document.getElementById('popup-text').innerHTML = demo.text;
+            document.getElementById('popup').style.display = 'flex';
+        }
+
+        function selectPlan(plan) {
+            const plans = {
+                free: 'Welcome to Basic Saver! 🎉\n\nYou can start using Discova.AI for free right now!\n\n✅ Access to general deals\n✅ Basic search tools\n✅ Community features',
+                pro: 'Smart Saver Selected! 🌟\n\nStart your 7-day free trial:\n\n✅ All premium features unlocked\n✅ Price drop alerts activated\n✅ Personalized recommendations ready\n\n💰 Start saving more today!',
+                premium: 'Max Saver+ Activated! 🚀\n\nPremium experience unlocked:\n\n✅ AI concierge ready\n✅ Exclusive deals access\n✅ Priority support enabled\n\n🎯 Maximum savings mode: ON!'
+            };
+            
+            document.getElementById('popup-title').textContent = 'Plan Selected!';
+            document.getElementById('popup-text').innerHTML = plans[plan].replace(/\n/g, '<br>');
+            document.getElementById('popup').style.display = 'flex';
+        }
+
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+
+        // Close popup when clicking outside
+        document.getElementById('popup').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePopup();
+            }
+        });
+
+        // Add some interactive animations on scroll
+        window.addEventListener('scroll', () => {
+            const cards = document.querySelectorAll('.feature-card, .pricing-card');
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+                
+                if (isVisible) {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        // Initialize cards with fade-in effect
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.feature-card, .pricing-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(50px)';
+                card.style.transition = 'all 0.6s ease';
+                card.style.transitionDelay = `${index * 0.1}s`;
+            });
+        });
+    </script>
+</body>
+</html>
